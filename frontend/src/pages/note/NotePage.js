@@ -13,10 +13,10 @@ const NotePage = () => {
       getNote();
    }, [noteId]);
 
-   //  let response = fetch(`/api/notes/${noteId}`);
-
    const getNote = async () => {
       try {
+         if (noteId === "new") return;
+
          const response = await fetch(`/api/notes/${noteId}`);
          if (!response.ok) {
             throw new Error("Network response was not ok");
@@ -38,23 +38,36 @@ const NotePage = () => {
       });
    };
 
-   // let handleSubmit = () => {
-   //    // console.log('NOTE:', note)
-   //    // if (noteId !== 'new' && note.body == '') {
-   //    //     deleteNote()
-   //    // } else if (noteId !== 'new') {
-   //    //     updateNote()
-   //    // } else if (noteId === 'new' && note.body !== null) {
-   //    //     createNote()
-   //    // }
-   //    updateNote();
+   let createNote = async () => {
+      fetch(`/api/notes/create`, {
+         method: "POST",
+         headers: {
+            "Content-Type": "application/json",
+         },
+         body: JSON.stringify(note),
+      });
+   };
 
-   //    history.push("/");
-   // };
+   let deleteNote = async () => {
+      fetch(`/api/notes/${noteId}/delete`, {
+         method: "DELETE",
+         headers: {
+            "Content-Type": "application/json",
+         },
+      });
 
-   const handleNavigation = () => {
-      console.log(note);
-      updateNote();
+      navigate("/"); // Navigates to the root route
+   };
+
+   let handleSubmit = () => {
+      console.log("NOTE:", note);
+      if (noteId !== "add" && note.body == "") {
+         deleteNote();
+      } else if (noteId !== "add") {
+         updateNote();
+      } else if (noteId === "add" && note.body !== null) {
+         createNote();
+      }
       navigate("/"); // Navigates to the root route
    };
 
@@ -62,8 +75,13 @@ const NotePage = () => {
       <div className="note">
          <div className="note-header">
             <h3>
-               <ArrowLeft onClick={handleNavigation} />
+               <ArrowLeft onClick={handleSubmit} />
             </h3>
+            {noteId !== "add" ? (
+               <button onClick={deleteNote}>Delete</button>
+            ) : (
+               <button onClick={handleSubmit}>Done</button>
+            )}
          </div>
          {/* <p>{note?.body}</p> */}
          <textarea

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import ListItem from "../../components/ListItem";
 import Header from "../../components/Header";
+import AddButton from "../../components/AddButton";
 
 const NotesListPage = () => {
    const [notes, setNotes] = useState([]);
@@ -40,6 +41,8 @@ const NotesListPage = () => {
                   <p>Loading notes...</p>
                )}
             </div>
+
+            <AddButton />
          </div>
       </div>
    );
