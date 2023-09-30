@@ -60,7 +60,11 @@ To run this application locally, follow these steps:
 
 ## Usage
 
-If you wanna development server
+This react project is integrated into Django. Normally, you can use the project without opening a new terminal (of course, if you made changes you have to use "npm run build" for every change). However, if you want to develop, you should start a React development server in a new terminal.
+
+### Production
+
+To run this application in a production environment, follow these steps:
 
 1. Start the Django development server:
 
@@ -68,7 +72,19 @@ If you wanna development server
     python manage.py runserver
    ```
 
-2. This react project is integrated into Django. Normally, you can use the project without opening a new terminal (of course, if you made changes you have to use "npm run build" for every change). However, if you want to develop, you should start a React development server in a new terminal.In a separate terminal, start the React development server:
+2. Open your web browser and access the application at http://localhost:8000.
+
+### Development
+
+To run this application in a development environment, follow these steps:
+
+1. Start the Django development server:
+
+   ```bash
+    python manage.py runserver
+   ```
+
+2. In a separate terminal, start the React development server:
 
    ```bash
     cd ../frontend
