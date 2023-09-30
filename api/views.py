@@ -88,4 +88,5 @@ def updateNote(request, pk):
 def deleteNote(request, pk):
     note = Note.objects.get(id=pk)
     note.delete()
-    HttpResponse(content='Success')
+    serializer = NoteSerializer(note, many=False)
+    return Response(serializer.data)
